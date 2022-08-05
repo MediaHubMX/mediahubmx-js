@@ -1,0 +1,35 @@
+doctype html
+html
+  head
+    title MediaHubMX Addon Server
+  body
+    tt
+      h1 MediaHubMX Addon Server
+      ul
+        each addon in addons
+          li
+            h2
+              a(class="addon-"+addon.id)
+                = addon.name ? selectT(addon.name) : addon.id
+            p= `Version: ${addon.version}`
+            if addon.description
+              p= selectT(addon.description)
+    include base64.pug
+    script(type="text/javascript")
+      - var data = addons.map(a => ({ type: a.type, name: a.name ? selectT(a.name) : a.id, id: a.id }));
+      .
+        var singleMode = #{options.singleMode};
+        !{JSON.stringify(data)}.forEach(function(a) {
+          var url = String(window.location).replace(/\/$/, '') + '/' + (singleMode ? '' : a.id);
+          var d = JSON.stringify({
+            kind: 'addon',
+            type: a.type,
+            name: a.name,
+            url: url
+          });
+          var e = document.getElementsByClassName('addon-'+a.id);
+          for (var i = 0; i < e.length; i++) {
+            var b = Base64.encode(d);
+            e[i].setAttribute('href', 'https://www.mhub.mx/share#' + b);
+          }
+        });

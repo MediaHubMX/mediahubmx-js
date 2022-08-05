@@ -1,0 +1,136 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+definitions:
+  Subtitle:
+    description: Subtitles for sources.
+    type: object
+    properties:
+      id:
+        description:
+          ID of this subtitle. By default the `url` is used. In some cases
+          the `url` parameter changes on every call, so `id` is needed
+          to prevent duplicate subtitles in the app.
+        type: string
+      name:
+        description: Optional informations about this subtitle.
+        type: string
+      language:
+        $ref: "general.yaml#/definitions/Language"
+      type:
+        description: Subtitle type.
+        type: string
+        enum: [srt, ttml, vtt]
+      encoding:
+        description: Enconding of the subtitle file.
+        type: string
+      url:
+        $ref: "general.yaml#/definitions/Url"
+    required: [language, type, url]
+  Source:
+    description: |
+      A source defines a location where the item can be viewed.
+      This can be a link to a stream or an external link to a website.
+      Some links need pre-processing before they can be played. For that,
+      please see the `resolve` function.
+    type: object
+    required: [type, url]
+    properties:
+      type:
+        description: Type of this source. Can be `url` or `externalUrl`.
+        type: string
+        enum: [url, externalUrl]
+        default: url
+      id:
+        description:
+          ID of this source. By default the `url` is used. In some cases
+          the `url` parameter changes on every call, so `id` is needed
+          to prevent duplicate sources in the app.
+        type: string
+      url:
+        description: URL to this source.
+        $ref: "general.yaml#/definitions/Url"
+      name:
+        description: Optional name of this source.
+        oneOf:
+          - $ref: "general.yaml#/definitions/TranslatedText"
+      format:
+        description: |
+          The video format. This is good to have since some formats have
+          playback issues on some devices.
+        type: string
+      icon:
+        description: |
+          Icon which will be displayed on the source list. The default source
+          icon is the addon icon.
+        oneOf:
+          - $ref: "general.yaml#/definitions/Image"
+      languages:
+        description: |
+          Languages of this source.
+        type: array
+        items:
+          $ref: "general.yaml#/definitions/Language"
+      subtitles:
+        type: array
+        items:
+          $ref: "#/definitions/Subtitle"
+      subtitlesExclusive:
+        description: |
+          If true, only this subtitles are offered to the user.
+          The app will not try to find more subtitles via other addons.
+        type: boolean
+        default: false
+      infos:
+        description: |
+          Infos displayed for this source. This is optional
+          and mostly used for type `externalUrl`.
+        type: array
+        items:
+          type: object
+          additionalProperties: false
+          properties:
+            type:
+              type: string
+              enum: [free, subscription, rent, purchase]
+              default: free
+            label:
+              type: string
+            currency:
+              type: string
+              pattern: "^[A-Z]{3}$"
+            price:
+              type: number
+          required: [type]
+        default: []
+      regions:
+        $ref: "general.yaml#/definitions/Regions"
+      forbidDownload:
+        description: Forbid the client to download this source.
+        type: boolean
+        default: false
+  ResolvedUrl:
+    description: A response of `source` or `subtitle` functions.
+    type: object
+    properties:
+      name:
+        description: Name of this resolved URL. Will be displayed in player.
+        type: string
+      quality:
+        description: Quality of this URL. Will be displayed in video player settings.
+        type: string
+      format:
+        description: |
+          The video format. This is good to have since some formats have
+          playback issues on some devices.
+        type: string
+      url:
+        $ref: "general.yaml#/definitions/Url"
+      headers:
+        type: object
+        default: {}
+      resolveAgain:
+        description: |
+          If `true`, the app will try to resolve the `url` again. This is useful
+          to resolve URL's which are behind some gateway for example.
+        type: boolean
+        default: false
+    required: [url]

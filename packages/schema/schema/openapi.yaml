@@ -1,0 +1,235 @@
+openapi: 3.0.0
+info:
+  title: MediaHubMX Addon API
+  version: 1.0.0
+paths:
+  /mediahubmx.json:
+    get:
+      summary: Get addon metadata.
+      responses:
+        200:
+          description: Successful call of action `addon`.
+          content:
+            application/json:
+              schema:
+                $ref: "api.yaml#/definitions/AddonResponse"
+        default:
+          $ref: "#/components/responses/DefaultError"
+    post:
+      summary: Get addon metadata.
+      parameters:
+        - $ref: "#/components/parameters/Signature"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: "api.yaml#/definitions/AddonRequest"
+      responses:
+        200:
+          description: Successful call of action `addon`.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "api.yaml#/definitions/AddonResponse"
+        default:
+          $ref: "#/components/responses/DefaultError"
+  /mediahubmx-catalog.json:
+    post:
+      summary: Calls the catalog action of an addon.
+      parameters:
+        - $ref: "#/components/parameters/Signature"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: "api.yaml#/definitions/CatalogRequest"
+                - $ref: "tasks.yaml#/definitions/TaskResponse"
+      responses:
+        200:
+          description: Successful call of action `catalog`.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "api.yaml#/definitions/CatalogResponse"
+                  - $ref: "tasks.yaml#/definitions/TaskRequest"
+        default:
+          $ref: "#/components/responses/DefaultError"
+  /mediahubmx-item.json:
+    post:
+      summary: Calls the item action of an addon.
+      parameters:
+        - $ref: "#/components/parameters/Signature"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: "api.yaml#/definitions/ItemRequest"
+                - $ref: "tasks.yaml#/definitions/TaskResponse"
+      responses:
+        200:
+          description: Successful call of action `item`.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "api.yaml#/definitions/ItemResponse"
+                  - $ref: "tasks.yaml#/definitions/TaskRequest"
+        default:
+          $ref: "#/components/responses/DefaultError"
+  /mediahubmx-source.json:
+    post:
+      summary: Calls the source action of an addon.
+      parameters:
+        - $ref: "#/components/parameters/Signature"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: "api.yaml#/definitions/SourceRequest"
+                - $ref: "tasks.yaml#/definitions/TaskResponse"
+      responses:
+        200:
+          description: Successful call of action `source`.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "api.yaml#/definitions/SourceResponse"
+                  - $ref: "tasks.yaml#/definitions/TaskRequest"
+        default:
+          $ref: "#/components/responses/DefaultError"
+  /mediahubmx-subtitle.json:
+    post:
+      summary: Calls the subtitle action of an addon.
+      parameters:
+        - $ref: "#/components/parameters/Signature"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: "api.yaml#/definitions/SubtitleRequest"
+                - $ref: "tasks.yaml#/definitions/TaskResponse"
+      responses:
+        200:
+          description: Successful call of action `subtitle`.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "api.yaml#/definitions/SubtitleResponse"
+                  - $ref: "tasks.yaml#/definitions/TaskRequest"
+        default:
+          $ref: "#/components/responses/DefaultError"
+  /mediahubmx-resolve.json:
+    post:
+      summary: Calls the resolve action of an addon.
+      parameters:
+        - $ref: "#/components/parameters/Signature"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: "api.yaml#/definitions/ResolveRequest"
+                - $ref: "tasks.yaml#/definitions/TaskResponse"
+      responses:
+        200:
+          description: Successful call of action `resolve`.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "api.yaml#/definitions/ResolveResponse"
+                  - $ref: "tasks.yaml#/definitions/TaskRequest"
+        default:
+          $ref: "#/components/responses/DefaultError"
+  /mediahubmx-captcha.json:
+    post:
+      summary: Calls the captcha action of an addon.
+      parameters:
+        - $ref: "#/components/parameters/Signature"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: "api.yaml#/definitions/CaptchaRequest"
+                - $ref: "tasks.yaml#/definitions/TaskResponse"
+      responses:
+        200:
+          description: Successful call of action `captcha`.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "api.yaml#/definitions/CaptchaResponse"
+                  - $ref: "tasks.yaml#/definitions/TaskRequest"
+        default:
+          $ref: "#/components/responses/DefaultError"
+  /mediahubmx-push-notification.json:
+    post:
+      summary: Calls the push-notification action of an addon.
+      parameters:
+        - $ref: "#/components/parameters/Signature"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: "api.yaml#/definitions/PushNotificationRequest"
+                - $ref: "tasks.yaml#/definitions/TaskResponse"
+      responses:
+        200:
+          description: Successful call of action `push-notification`.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "api.yaml#/definitions/PushNotificationResponse"
+                  - $ref: "tasks.yaml#/definitions/TaskRequest"
+        default:
+          $ref: "#/components/responses/DefaultError"
+components:
+  schemas:
+    Addon:
+      $ref: "addons.yaml#/definitions/Addon"
+    DirectoryItem:
+      $ref: "catalogs.yaml#/definitions/DirectoryItem"
+    MovieItem:
+      $ref: "items.yaml#/definitions/MovieItem"
+    SeriesItem:
+      $ref: "items.yaml#/definitions/SeriesItem"
+    ChannelItem:
+      $ref: "items.yaml#/definitions/ChannelItem"
+    UnknownItem:
+      $ref: "items.yaml#/definitions/UnknownItem"
+    IptvItem:
+      $ref: "items.yaml#/definitions/IptvItem"
+    Source:
+      $ref: "objects.yaml#/definitions/Source"
+    Subtitle:
+      $ref: "objects.yaml#/definitions/Subtitle"
+    # ResolvedUrl:
+    #   $ref: "objects.yaml#/definitions/ResolvedUrl"
+  parameters:
+    Signature:
+      name: mediahubmx-signature
+      in: header
+      description: The MediaHubMX client signature
+      required: true
+      schema:
+        type: string
+  responses:
+    DefaultError:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: "general.yaml#/definitions/Error"

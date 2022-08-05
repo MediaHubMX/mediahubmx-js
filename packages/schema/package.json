@@ -1,0 +1,30 @@
+{
+  "name": "@mediahubmx/schema",
+  "description": "MediaHubMX JSON Schema",
+  "version": "1.0.0",
+  "main": "dist",
+  "scripts": {
+    "prepublishOnly": "npm run build",
+    "build": "rm -rf dist && mkdir -p dist && npm run build:tsc && npm run build:schema && npm run build:types",
+    "build:tsc": "tsc",
+    "build:schema": "node ./buildSchema.js",
+    "build:types": "node ./buildTypes.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "ajv": "^8.1.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.22",
+    "@types/node": "^14.14.41",
+    "jest": "^26.6.3",
+    "js-yaml": "^4.1.0",
+    "json-schema-ref-parser": "^9.0.7",
+    "json-schema-to-typescript": "^10.1.4",
+    "ts-jest": "^26.5.5",
+    "typescript": "^4.2.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

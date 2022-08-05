@@ -1,0 +1,249 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+definitions:
+  # Helpers
+  DefaultAddonRequest:
+    type: object
+    properties:
+      language:
+        oneOf:
+          - $ref: "general.yaml#/definitions/Language"
+        default: en
+      region:
+        oneOf:
+          - $ref: "general.yaml#/definitions/Country"
+        default: "XX"
+    required: [language, region]
+  # Api requests and responses
+  SelftestRequest:
+    description: |
+      Check if this addon is healthy. The response have to be the string `ok`.
+      The default selftest is testing the cache handler.
+  SelftestResponse:
+    type: string
+    enum: [ok]
+  AddonRequest:
+    description: Get the addon manifest.
+    oneOf:
+      - $ref: "#/definitions/DefaultAddonRequest"
+  AddonResponse:
+    oneOf:
+      - $ref: "addons.yaml#/definitions/Server"
+      - $ref: "addons.yaml#/definitions/Addon"
+  CatalogRequest:
+    description: Request parameters for a catalog call.
+    allOf:
+      - $ref: "#/definitions/DefaultAddonRequest"
+      - type: object
+        required: [id, adult, search, sort, filter, cursor]
+        properties:
+          catalogId:
+            description: |
+              ID of the catalog.
+            type: string
+            default: ""
+          id:
+            description: |
+              ID of the `catalog` object. Defaults to an empty string.
+            type: string
+            default: ""
+          # The following properties are 1:1 the ones from
+          # `catalogs.yaml#/definitions/CatalogArguments`, but  with all
+          # properties required. This is required since the typescript
+          # converter can't handle the subclassed `required` fields.
+          adult:
+            description: Return adult items.
+            type: boolean
+            default: false
+          search:
+            description: Search query string.
+            type: string
+            default: ""
+          sort:
+            description: Sort results by this column.
+            type: string
+            default: ""
+          filter:
+            description: Filter values.
+            type: object
+            default: {}
+          cursor:
+            description: |
+              Used for pagination. This describes the position inside the catalog.
+              Normally this should be a page or offset number, or an ID representing the
+              current position. On the first request this value is always `null`.
+              If there are more items available for the current page, return the current
+              cursor with the `nextCursor` property of `CatalogResponse`.
+            type: ["null", string, number]
+            nullable: true
+            default: null
+  CatalogResponse:
+    type: object
+    required: [items, nextCursor]
+    properties:
+      catalogId:
+        description: Overwrite the `catalogId` of a catalog.
+        type: string
+      options:
+        description: Overwrite `options` of a catalog.
+        oneOf:
+          - $ref: "catalogs.yaml#/definitions/CatalogOptions"
+      features:
+        description: Overwrite `features` of a catalog.
+        oneOf:
+          - $ref: "catalogs.yaml#/definitions/CatalogFeatures"
+      items:
+        description: Array of items.
+        type: array
+        items:
+          $ref: "items.yaml#/definitions/MainItem"
+      nextCursor:
+        description: |
+          Used for pagination. This describes the position of the current catalog.
+          This value will be used on the next request on `CatalogRequest.cursor`.
+          If the end of the catalog is reached, set this to `null`.
+        type: ["null", string, number]
+        nullable: true
+  ItemRequest:
+    description: Request parameters for a item request.
+    allOf:
+      - $ref: "#/definitions/DefaultAddonRequest"
+      - type: object
+        properties:
+          type:
+            $ref: "items.yaml#/definitions/ItemTypes"
+          ids:
+            $ref: "items.yaml#/definitions/ItemIDs"
+          name:
+            description: |
+              Name of this item. If there are more than one translation available,
+              it will always be the one closest to the currently selected app language.
+            type: string
+          nameTranslations:
+            $ref: "items.yaml#/definitions/NameTranslations"
+          originalName:
+            description: Original name of this item.
+            type: string
+          releaseDate:
+            description: Release date as unix timestamp or parseable string.
+            oneOf:
+              - $ref: "general.yaml#/definitions/UnixTimestamp"
+              - type: string
+          year:
+            description: Release year.
+            oneOf:
+              - $ref: "general.yaml#/definitions/Year"
+        required: [type, ids, name]
+  ItemResponse:
+    oneOf:
+      - $ref: "items.yaml#/definitions/PlayableItem"
+      - type: "null"
+  SourceRequest:
+    allOf:
+      - $ref: "#/definitions/DefaultAddonRequest"
+      - $ref: "#/definitions/ItemRequest"
+      - type: object
+        properties:
+          episode:
+            description: |
+              Metadata about the requested episode of a series item.
+            type: object
+            properties:
+              ids:
+                $ref: "items.yaml#/definitions/ItemIDs"
+              name:
+                description: Name of this sub item.
+                type: string
+              nameTranslations:
+                $ref: "items.yaml#/definitions/NameTranslations"
+              releaseDate:
+                description: Release date as unix timestamp or parseable string.
+                oneOf:
+                  - $ref: "general.yaml#/definitions/UnixTimestamp"
+                  - type: string
+              season:
+                description: In casse of an episode, the season number.
+                type: number
+                minimum: 0
+                maximum: 100000
+              episode:
+                description: In casse of an episode, the episode number.
+                type: number
+                minimum: 0
+                maximum: 100000
+            default: {}
+        required: [episode]
+  SourceResponse:
+    oneOf:
+      - $ref: "objects.yaml#/definitions/Source"
+      - type: array
+        items:
+          $ref: "objects.yaml#/definitions/Source"
+      - type: "null"
+  SubtitleRequest:
+    oneOf:
+      - $ref: "#/definitions/SourceRequest"
+  SubtitleResponse:
+    oneOf:
+      - $ref: "objects.yaml#/definitions/Subtitle"
+      - type: array
+        items:
+          $ref: "objects.yaml#/definitions/Subtitle"
+      - type: "null"
+  ResolveRequest:
+    description: |
+      Resolve a `url` to a `Url` or `ResolvedUrl` which can be played in
+      the app.
+    type: object
+    properties:
+      region:
+        oneOf:
+          - $ref: "general.yaml#/definitions/Country"
+        default: "XX"
+      url:
+        $ref: "general.yaml#/definitions/Url"
+    required: [region, url]
+  ResolveResponse:
+    oneOf:
+      - $ref: "general.yaml#/definitions/Url"
+      - $ref: "objects.yaml#/definitions/ResolvedUrl"
+      - type: array
+        description: You also can return more than one resolved results.
+        items:
+          oneOf:
+            - $ref: "general.yaml#/definitions/Url"
+            - $ref: "objects.yaml#/definitions/ResolvedUrl"
+      - type: "null"
+  CaptchaRequest:
+    oneOf:
+      - $ref: "tasks.yaml#/definitions/TaskRecaptchaRequest"
+  CaptchaResponse:
+    oneOf:
+      - $ref: "tasks.yaml#/definitions/TaskRecaptchaResponse"
+      - type: "null"
+  PushNotificationRequest:
+    allOf:
+      - $ref: "#/definitions/DefaultAddonRequest"
+      - type: object
+        properties:
+          ignoreIds:
+            description: List of notification ID's which were already displayed.
+            type: array
+            items:
+              type: string
+          metadata:
+            description: Metadata about the app state, user infos and so on.
+            type: object
+  PushNotificationResponse:
+    oneOf:
+      - type: object
+        required: [id, message]
+        properties:
+          id:
+            type: string
+          title:
+            type: string
+          message:
+            type: string
+          picture:
+            type: string
+      - type: "null"

@@ -1,0 +1,289 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+definitions:
+  CatalogOptions:
+    description: Options on how to display images.
+    type: object
+    additionalProperties: false
+    properties:
+      shape:
+        description: |
+          Shape of the images.
+          If not set, a value depening on the item type is used.
+        type: string
+        enum: [portrait, landscape, square, round]
+      size:
+        description: |
+          Shape of the images.
+          If not set, a value depening on the item type is used.
+        type: string
+        enum: [small, normal, large]
+      displayName:
+        description: |
+          Display the item name over the image.
+          If not set, a value depening on the item type is used.
+        type: boolean
+  CompatibleCatalogFeature:
+    description: List of compatible filters or sort keys, if not set, all will be used.
+    type: array
+    items:
+      type: string
+  CatalogFeatureSort:
+    type: object
+    additionalProperties: false
+    properties:
+      id:
+        type: string
+      name:
+        $ref: "general.yaml#/definitions/TranslatedText"
+      compatibleFilter:
+        $ref: "#/definitions/CompatibleCatalogFeature"
+  CatalogFeatureFilter:
+    type: object
+    additionalProperties: false
+    properties:
+      id:
+        type: string
+      name:
+        $ref: "general.yaml#/definitions/TranslatedText"
+      multiselect:
+        description: If this is true, an array will be returned.
+        type: boolean
+        default: false
+      values:
+        description: Values used by filters (Genres, countries, ...).
+        type: array
+        items:
+          oneOf:
+            - type: object
+              additionalProperties: false
+              properties:
+                key:
+                  type: string
+                value:
+                  $ref: "general.yaml#/definitions/TranslatedText"
+              required: [key, value]
+            - $ref: "general.yaml#/definitions/TranslatedText"
+      defaultValue:
+        description: |
+          Default value of this filter, should be `TranslatedText` or
+          the key of a filter. Have to be one of `values`.
+        anyOf:
+          - $ref: "general.yaml#/definitions/TranslatedText"
+          - type: string
+    required: [id, name, values]
+  CatalogFeatures:
+    description: Catalog features like search, sort and filter.
+    type: object
+    additionalProperties: false
+    properties:
+      search:
+        description: Search options.
+        type: object
+        additionalProperties: false
+        properties:
+          enabled:
+            type: boolean
+            default: false
+          compatibleSort:
+            $ref: "#/definitions/CompatibleCatalogFeature"
+          compatibleFilter:
+            $ref: "#/definitions/CompatibleCatalogFeature"
+      sort:
+        description: Different sort columns and their caption including translations.
+        type: array
+        items:
+          $ref: "#/definitions/CatalogFeatureSort"
+      filter:
+        description: Different sort column and their caption including translations.
+        type: array
+        items:
+          $ref: "#/definitions/CatalogFeatureFilter"
+  CatalogArguments:
+    description: |
+      Request parameters for a catalog call. This is nearly the same as `CatalogRequest`.
+    type: object
+    additionalProperties: false
+    properties:
+      adult:
+        description: Return adult items.
+        type: boolean
+        default: false
+      search:
+        description: Search query string.
+        type: string
+        default: ""
+      sort:
+        description: Sort results by this column.
+        type: string
+        default: ""
+      filter:
+        description: Filter values.
+        type: object
+        default: {}
+      cursor:
+        description: |
+          Used for pagination. This describes the position inside the catalog.
+          Normally this should be a page or offset number, or an ID representing the
+          current position. On the first request this value is always `null`.
+          If there are more items available for the current page, return the current
+          cursor with the `nextCursor` property of `CatalogResponse`.
+        type: ["null", string, number]
+        nullable: true
+        default: null
+    default: {}
+  Catalog:
+    type: object
+    properties:
+      id:
+        description: ID of catalog.
+        type: string
+        default: ""
+      name:
+        description: Name of catalog.
+        oneOf:
+          - $ref: "general.yaml#/definitions/TranslatedText"
+      # description:
+      #   description: Description of item.
+      #   oneOf:
+      #     - $ref: "general.yaml#/definitions/TranslatedText"
+      # images:
+      #   $ref: "items.yaml#/definitions/ItemImages"
+      options:
+        $ref: "#/definitions/CatalogOptions"
+      features:
+        $ref: "#/definitions/CatalogFeatures"
+      itemTypes:
+        description: |
+          Item types returned by this catalog. If not set,
+          it will fallback to the addon item types.
+        type: array
+        items:
+          $ref: "items.yaml#/definitions/ItemTypes"
+      adult:
+        description: Have to be `true` if this catalog provides adult content.
+        type: boolean
+        default: false
+  Page:
+    type: object
+    description: |
+      A page which contains dashboards.
+      If the property `dashboards` is not set, a `page` request to the addon
+      will be made.
+    additionalProperties: false
+    properties:
+      id:
+        type: string
+      name:
+        oneOf:
+          - $ref: "general.yaml#/definitions/TranslatedText"
+      dashboards:
+        description: |
+          Predefined dashboards. This dashboards get updated when the addon is
+          updated.
+        type: array
+        items:
+          oneOf:
+            - $ref: "#/definitions/DashboardItem"
+            - type: object
+              description: |
+                Copy all dashboards from another page which can be on defined
+                in another addon.
+              additionalProperties: false
+              required: [type]
+              properties:
+                type:
+                  type: string
+                  enum: [copyItems]
+                addonId:
+                  description: |
+                    Addon ID from where to import dashboard from. If not set,
+                    the current addon is used.
+                  type: string
+                pageId:
+                  description: |
+                    Page ID to import.
+                  type: string
+  BaseDirectoryItem:
+    type: object
+    required: [type]
+    properties:
+      type:
+        type: string
+        enum: [directory]
+      catalogId:
+        description: |
+          Catalog this directory belongs to. It will use the `options` and `features`
+          of the catalog.
+        type: string
+        default: ""
+      addonId:
+        description: |
+          Addon ID which should be called for this addon. By default this value is set
+          automatically.
+        type: string
+      name:
+        description: Name of directory.
+        oneOf:
+          - $ref: "general.yaml#/definitions/TranslatedText"
+      # description:
+      #   description: Description of directory.
+      #   oneOf:
+      #     - $ref: "general.yaml#/definitions/TranslatedText"
+      options:
+        $ref: "#/definitions/CatalogOptions"
+      features:
+        $ref: "#/definitions/CatalogFeatures"
+      args:
+        $ref: "#/definitions/CatalogArguments"
+      initialData:
+        description: |
+          Optionally define initial items.
+        type: object
+        required: [items, nextCursor]
+        properties:
+          items:
+            description: Array of items.
+            type: array
+            items:
+              $ref: "items.yaml#/definitions/MainItem"
+          nextCursor:
+            description: |
+              Used for pagination. This describes the position of the current catalog.
+              This value will be used on the next request on `CatalogRequest.cursor`.
+              If the end of the catalog is reached, set this to `null`.
+            type: ["null", string, number]
+            nullable: true
+            default: null
+  DashboardItem:
+    description: |
+      Directories and items which will be displayed on the home page in the app.
+    oneOf:
+      - allOf:
+          - $ref: "#/definitions/BaseDirectoryItem"
+          - type: object
+            properties:
+              pageId:
+                description: |
+                  To use the dashboard of another addon, the `pageId` might
+                  be required.
+                type: string
+              id:
+                description: |
+                  ID of dashboard.
+                  To overwrite (or reconfigure) other dashboards, set
+                  this to an already existing dashboard. The found object
+                  then is merged with this one.
+                type: string
+      - $ref: "items.yaml#/definitions/PlayableItem"
+  DirectoryItem:
+    description: A directory is a sub directory of a catalog.
+    allOf:
+      - $ref: "#/definitions/BaseDirectoryItem"
+      - type: object
+        properties:
+          id:
+            description: ID of directory.
+            type: string
+          images:
+            oneOf:
+              - $ref: "items.yaml#/definitions/ItemImages"
