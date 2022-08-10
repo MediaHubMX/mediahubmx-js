@@ -32,6 +32,22 @@ definitions:
         $ref: "general.yaml#/definitions/Image"
       background:
         $ref: "general.yaml#/definitions/Image"
+  Person:
+    description: An actor, director or any other person.
+    oneOf:
+      - type: string
+      - type: object
+        additionalProperties: false
+        properties:
+          name:
+            type: string
+          gender:
+            type: string
+          character:
+            type: string
+          poster:
+            $ref: "general.yaml#/definitions/Image"
+        required: [name]
   ItemIDs:
     description: |
       Different IDs assigned to this item, for example
@@ -83,7 +99,15 @@ definitions:
         description: Production compnaies.
         type: array
         items:
-          type: string
+          oneOf:
+            - type: string
+            - type: object
+              properties:
+                name:
+                  type: string
+                poster:
+                  $ref: "general.yaml#/definitions/Image"
+              required: [name]
       countries:
         description: Country list in ISO-3166-1 format.
         type: array
@@ -103,28 +127,20 @@ definitions:
         description: List of writers.
         type: array
         items:
-          type: string
+          oneOf:
+            - $ref: "#/definitions/Person"
       director:
         description: List of directors.
         type: array
         items:
-          type: string
+          oneOf:
+            - $ref: "#/definitions/Person"
       cast:
         description: List of cast.
         type: array
         items:
           oneOf:
-            - type: string
-            - type: object
-              additionalProperties: false
-              properties:
-                name:
-                  type: string
-                gender:
-                  type: string
-                character:
-                  type: string
-              required: [name]
+            - $ref: "#/definitions/Person"
       homepage:
         description: Homepage.
         type: string
