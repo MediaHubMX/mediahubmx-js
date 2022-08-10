@@ -1,4 +1,5 @@
-import { testCache } from "@mediahubmx/cache/dist/utils/test-utils";
+import jest from "@jest/globals";
+import { testCache } from "@mediahubmx/cache/src/utils/test-utils";
 import { CassandraCache } from "../src";
 
 if (process.env.CASSANDRA_CONFIG) {
@@ -10,7 +11,7 @@ if (process.env.CASSANDRA_CONFIG) {
   }
   testCache("cassandra", () => new CassandraCache(config), 2);
 } else {
-  describe("CassandraCache", () => {
-    test("noop", () => {});
+  jest.describe("CassandraCache", () => {
+    jest.test("noop", () => {});
   });
 }

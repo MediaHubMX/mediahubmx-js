@@ -1,7 +1,8 @@
-import { createApp, createAddon } from "../src";
+import jest from "@jest/globals";
+import { createAddon, createApp } from "../src";
 
 const exported = [createApp, createAddon];
 
-test("SDK should export all needed methods and properties", () => {
-  expect(exported.every((fn) => fn)).toBeTruthy();
+jest.test("SDK should export all needed methods and properties", () => {
+  jest.expect(exported.every((fn) => fn)).toBeTruthy();
 });

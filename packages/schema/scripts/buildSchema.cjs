@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const fs = require("fs");
 const path = require("path");
 const yaml = require("js-yaml");
@@ -41,4 +42,10 @@ const load = () => {
   return flatten(data);
 };
 
-module.exports = load();
+const data = load();
+const json = JSON.stringify(data, null, 2);
+fs.writeFileSync(path.join(__dirname, "..", "dist", "schema.json"), json);
+fs.writeFileSync(
+  path.join(__dirname, "..", "dist", "schema.js"),
+  `module.exports = ${json};`
+);

@@ -4,10 +4,12 @@ const $RefParser = require("json-schema-ref-parser");
 const path = require("path");
 const fs = require("fs");
 
-const declarationsOutputPath = path.resolve(__dirname, "dist");
+const declarationsOutputPath = path.resolve(__dirname, "..", "dist");
 
 const generateTsDeclarations = async () => {
-  const schema = await $RefParser.parse("./dist/schema.json");
+  const schema = await $RefParser.parse(
+    path.resolve(declarationsOutputPath, "schema.json")
+  );
   schema.type = "object";
   schema.properties = {};
   schema.additionalProperties = false;

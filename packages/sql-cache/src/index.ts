@@ -1,5 +1,4 @@
-import { registerCacheEngineCreator } from "@mediahubmx/cache";
-import { BasicCache } from "@mediahubmx/cache/dist/engines/basic";
+import { BasicCache, registerCacheEngineCreator } from "@mediahubmx/cache";
 import retryPromise from "promise-retry";
 import {
   Connection,

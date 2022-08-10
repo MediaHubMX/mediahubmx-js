@@ -1,4 +1,4 @@
-import ms = require("ms");
+import ms from "ms";
 import {
   CacheFoundError,
   IgnoreCacheError,

@@ -2,10 +2,11 @@
 // import * as os from "os";
 // import * as path from "path";
 // import { DiskCache } from "../src/engines/disk";
+import jest from "@jest/globals";
 import { MemoryCache } from "../src/engines/memory";
 import { testCache } from "../src/utils/test-utils";
 
-describe(`MemoryCache`, () => {
+jest.describe(`MemoryCache`, () => {
   testCache("memory", () => new MemoryCache());
 });
 

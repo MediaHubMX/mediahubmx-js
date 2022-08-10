@@ -1,5 +1,6 @@
 import { CacheHandler } from "@mediahubmx/cache";
 import { TaskFetchRequest, TaskFetchResponse } from "@mediahubmx/schema";
+import fetch, { BodyInit, Request, Response } from "node-fetch";
 import { URL, URLSearchParams } from "url";
 import { Responder, sendTask } from "./engine";
 import { FetchFn, MResponseInit } from "./types";

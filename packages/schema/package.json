@@ -7,8 +7,8 @@
     "prepublishOnly": "npm run build",
     "build": "rm -rf dist && mkdir -p dist && npm run build:tsc && npm run build:schema && npm run build:types",
     "build:tsc": "tsc",
-    "build:schema": "node ./buildSchema.js",
-    "build:types": "node ./buildTypes.js",
+    "build:schema": "node ./scripts/buildSchema.cjs",
+    "build:types": "node ./scripts/buildTypes.cjs",
     "test": "jest"
   },
   "dependencies": {
@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "@types/jest": "^28.1.6",
+    "@types/js-yaml": "^4.0.5",
     "@types/node": "^18.6.5",
     "jest": "^28.1.3",
     "js-yaml": "^4.1.0",

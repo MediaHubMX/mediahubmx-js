@@ -1,4 +1,5 @@
-import { testCache } from "@mediahubmx/cache/dist/utils/test-utils";
+import jest from "@jest/globals";
+import { testCache } from "@mediahubmx/cache";
 import { RedisCache } from "../src";
 
 if (process.env.REDIS_URL) {
@@ -7,7 +8,7 @@ if (process.env.REDIS_URL) {
     () => new RedisCache({ url: <string>process.env.REDIS_URL })
   );
 } else {
-  describe("RedisCache", () => {
-    test("noop", () => {});
+  jest.describe("RedisCache", () => {
+    jest.test("noop", () => {});
   });
 }

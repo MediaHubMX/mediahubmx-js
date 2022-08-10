@@ -2,6 +2,7 @@ import {
   TaskNotificationRequest,
   TaskRecaptchaRequest,
 } from "@mediahubmx/schema";
+import { RequestInfo, RequestInit, Response, ResponseInit } from "node-fetch";
 import { URLSearchParams } from "url";
 
 export type MRequestInit = RequestInit & {

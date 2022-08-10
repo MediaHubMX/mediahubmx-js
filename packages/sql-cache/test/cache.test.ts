@@ -1,4 +1,5 @@
-import { testCache } from "@mediahubmx/cache/dist/utils/test-utils";
+import jest from "@jest/globals";
+import { testCache } from "@mediahubmx/cache";
 import { createFromUrl, getTypeFromUrl } from "../src";
 
 let i = 1;
@@ -12,7 +13,7 @@ for (; ; i++) {
 }
 
 if (i === 1) {
-  describe("SqlCache", () => {
-    test("noop", () => {});
+  jest.describe("SqlCache", () => {
+    jest.test("noop", () => {});
   });
 }

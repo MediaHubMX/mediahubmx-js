@@ -1,3 +1,4 @@
+import jest from "@jest/globals";
 import { getClientValidators, getServerValidators } from "../src";
 
 const movie = () => ({
@@ -15,14 +16,18 @@ const directory = () => ({
 //   nextCursor: null,
 // });
 
-test("Validate movie item", () => {
-  expect(getServerValidators().models.item.movie(movie())).toBeTruthy();
-  expect(getClientValidators().models.item.movie(movie())).toBeTruthy();
+jest.test("Validate movie item", () => {
+  jest.expect(getServerValidators().models.item.movie(movie())).toBeTruthy();
+  jest.expect(getClientValidators().models.item.movie(movie())).toBeTruthy();
 });
 
-test("Validate directory item with null as id", () => {
-  expect(getServerValidators().models.item.directory(directory())).toBeTruthy();
-  expect(getClientValidators().models.item.directory(directory())).toBeTruthy();
+jest.test("Validate directory item with null as id", () => {
+  jest
+    .expect(getServerValidators().models.item.directory(directory()))
+    .toBeTruthy();
+  jest
+    .expect(getClientValidators().models.item.directory(directory()))
+    .toBeTruthy();
 });
 
 // test("Validate catalog response", () => {

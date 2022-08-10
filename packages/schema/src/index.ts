@@ -1,7 +1,6 @@
 import type { Options } from "ajv";
 import { Schema } from "./helpers";
-
-const schema = require("./schema");
+import schema from "./schema";
 
 function createValidator(schemas: any, type: string, definition: string) {
   const validate = schemas[type].get(definition);

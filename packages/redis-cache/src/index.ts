@@ -1,9 +1,9 @@
-import { registerCacheEngineCreator } from "@mediahubmx/cache";
-import { BasicCache } from "@mediahubmx/cache/dist/engines/basic";
 import {
+  BasicCache,
   compressCache,
   decompressCache,
-} from "@mediahubmx/cache/dist/utils/compress";
+  registerCacheEngineCreator,
+} from "@mediahubmx/cache";
 import * as redis from "redis";
 import { promisify } from "util";
 
