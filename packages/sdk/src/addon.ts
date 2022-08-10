@@ -1,4 +1,4 @@
-import { CacheOptionsParam } from "@mediahubmx/cache";
+import { CacheOptions, CacheOptionsParam } from "@mediahubmx/cache";
 import { Addon, AddonActions, AddonResourceActions } from "@mediahubmx/schema";
 import { cloneDeep } from "lodash";
 import { ActionHandlers, ResolverHandlerFn } from "./types";
@@ -72,7 +72,7 @@ export class AddonClass {
     return this;
   }
 
-  public getDefaultCacheOptions() {
+  public getDefaultCacheOptions(): Partial<CacheOptions> {
     return this.defaultCacheOptions;
   }
 

@@ -3,11 +3,11 @@ import {
   AddonClass,
   AddonRequest,
   AddonResourceActions,
-  DirectoryItem,
   CatalogRequest,
   createApp,
   createEngine,
   DefaultAddonRequest,
+  DirectoryItem,
   ItemRequest,
   MainItem,
   PlayableItem,
@@ -17,7 +17,7 @@ import {
   SubtitleRequest,
 } from "@mediahubmx/sdk";
 import assert from "assert";
-import request from "supertest";
+import request, { Response } from "supertest";
 
 export class AddonTest {
   public readonly app: request.SuperTest<request.Test>;
@@ -27,7 +27,11 @@ export class AddonTest {
     this.app = request(createApp(engine));
   }
 
-  async call<T = any>(action: AddonActions, data: T, expectedStatus = 200) {
+  async call<T = any>(
+    action: AddonActions,
+    data: T,
+    expectedStatus = 200
+  ): Promise<Response> {
     return await this.app
       .post(`/${this.addon.getId()}/mediahubmx-${action}.json`)
       .send(<any>data)

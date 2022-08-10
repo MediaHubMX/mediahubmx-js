@@ -1,5 +1,9 @@
 import { TranslatedText } from "@mediahubmx/schema";
-import i18next, { InitOptions, TFunction } from "i18next";
+import i18next, {
+  i18n as i18nInterface,
+  InitOptions,
+  TFunction,
+} from "i18next";
 import FsBackend from "i18next-fs-backend";
 import LocizeBackend from "i18next-locize-backend";
 import path from "path";
@@ -42,7 +46,7 @@ export const init = async (languages: string[], options?: InitOptions) => {
   });
 };
 
-export const i18n = i18next;
+export const i18n: i18nInterface = i18next;
 
 /**
  * Returns an `TFunction` instance.

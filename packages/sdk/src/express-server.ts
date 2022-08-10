@@ -1,6 +1,6 @@
 import { AddonActions, TranslatedText } from "@mediahubmx/schema";
 import bodyParser from "body-parser";
-import express from "express";
+import express, { Router } from "express";
 import "express-async-errors";
 import morgan from "morgan";
 import path from "path";
@@ -72,7 +72,7 @@ const createAddonRouter = (
   engine: Engine,
   addon: AddonClass,
   options: IExpressServerOptions
-) => {
+): Router => {
   const router = express.Router();
   router.use(bodyParser.json({ limit: "10mb" }));
   router.get("/", async (req, res) => {
@@ -123,7 +123,7 @@ const createAddonRouter = (
 export const createSingleAddonRouter = (
   engine: Engine,
   options: IExpressServerOptions
-) => {
+): Router => {
   if (engine.addons.length !== 1) {
     throw new Error(
       `The single addon router only supports one addon at a time. ` +
@@ -140,7 +140,7 @@ export const createSingleAddonRouter = (
 export const createMultiAddonRouter = (
   engine: Engine,
   options: IExpressServerOptions
-) => {
+): Router => {
   engine.initialize();
 
   const router = express.Router();
