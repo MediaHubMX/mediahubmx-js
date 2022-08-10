@@ -1,7 +1,7 @@
 {
   "name": "@mediahubmx/schema",
   "description": "MediaHubMX JSON Schema",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist",
   "scripts": {
     "prepublishOnly": "npm run build",

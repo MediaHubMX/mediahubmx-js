@@ -1,6 +1,6 @@
 {
   "name": "@mediahubmx/sql-cache",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MediaHubMX SQL cache wrapper",
   "main": "dist",
   "scripts": {
@@ -9,7 +9,7 @@
     "prepublishOnly": "rm -rf dist && npm run build"
   },
   "dependencies": {
-    "@mediahubmx/cache": "^1.0.0",
+    "@mediahubmx/cache": "^1.0.1",
     "mysql": "^2.18.1",
     "pg": "^8.7.3",
     "promise-retry": "^2.0.1",

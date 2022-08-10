@@ -1,7 +1,7 @@
 {
   "name": "@mediahubmx/i18n",
   "description": "MediaHubMX tools for translations",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist",
   "scripts": {
     "test": "jest",
@@ -9,7 +9,7 @@
     "prepublishOnly": "rm -rf dist && npm run build"
   },
   "dependencies": {
-    "@mediahubmx/schema": "^1.0.0",
+    "@mediahubmx/schema": "^1.0.1",
     "i18next": "^21.9.0",
     "i18next-fs-backend": "^1.1.5",
     "i18next-locize-backend": "^5.1.2"

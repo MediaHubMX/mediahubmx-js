@@ -1,7 +1,7 @@
 {
   "name": "@mediahubmx/cassandra-cache",
   "description": "MediaHubMX Cassandra cache wrapper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist",
   "scripts": {
     "test": "jest",
@@ -9,7 +9,7 @@
     "prepublishOnly": "rm -rf dist && npm run build"
   },
   "dependencies": {
-    "@mediahubmx/cache": "^1.0.0",
+    "@mediahubmx/cache": "^1.0.1",
     "cassandra-driver": "^4.6.4"
   },
   "devDependencies": {
