@@ -34,7 +34,6 @@ export const init = async (languages: string[], options?: InitOptions) => {
     backend,
     debug: false,
     fallbackLng: languages[0],
-    whitelist: languages,
     preload: languages,
     load: "languageOnly",
     saveMissing: process.env.NODE_ENV !== "production",

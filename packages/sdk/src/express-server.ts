@@ -47,7 +47,8 @@ export interface IExpressServerOptions {
 }
 
 export class ExpressServerAddonOptions
-  implements Partial<IExpressServerOptions> {
+  implements Partial<IExpressServerOptions>
+{
   constructor(props: Partial<IExpressServerOptions>) {
     Object.assign(this, props);
   }

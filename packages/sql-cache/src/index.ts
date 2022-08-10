@@ -53,7 +53,7 @@ export class SqlCache extends BasicCache {
     const c = await this.connectionP;
     return c
       .getRepository(CacheItem)
-      .findOne({ k: getKey(key) })
+      .findOne({ where: { k: getKey(key) } })
       .then(checkTtl)
       .then((_) => !!_);
   }
@@ -62,9 +62,7 @@ export class SqlCache extends BasicCache {
     const c = await this.connectionP;
     return c
       .getRepository(CacheItem)
-      .findOne({
-        k: getKey(key),
-      })
+      .findOne({ where: { k: getKey(key) } })
       .then(checkTtl)
       .then((cacheResult) => {
         return cacheResult?.v;

@@ -27,16 +27,19 @@ export class FetchAgent extends Agent {
       headers: (opts.headers || {}) as { [key: string]: string },
     });
 
-    const headers = {
-      ...resp.headers.raw(),
+    const headers: Record<string, (string | undefined)[]> = {
       "transfer-encoding": ["identity"],
       "content-length": [undefined],
     };
+    resp.headers.forEach((value, key) => {
+      if (headers[key]) headers[key].push(value);
+      else headers[key] = [value];
+    });
 
     const responseHeadersLines = Object.keys(headers)
-      .filter((key) => headers[key][0])
+      .filter((key) => headers[key])
       .map((key) => {
-        return `${key}: ${headers[key][0]}`;
+        return `${key}: ${headers[key]}`;
       });
 
     req.once("socket", async (s) => {

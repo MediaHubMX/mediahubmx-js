@@ -27,11 +27,7 @@ export class AddonTest {
     this.app = request(createApp(engine));
   }
 
-  async call<T extends any>(
-    action: AddonActions,
-    data: T,
-    expectedStatus = 200
-  ) {
+  async call<T = any>(action: AddonActions, data: T, expectedStatus = 200) {
     return await this.app
       .post(`/${this.addon.getId()}/mediahubmx-${action}.json`)
       .send(<any>data)

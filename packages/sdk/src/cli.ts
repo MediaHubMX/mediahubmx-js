@@ -1,4 +1,4 @@
-import program from "commander";
+import { program } from "commander";
 import "dotenv/config";
 import { AddonClass } from "./addon";
 import { createEngine } from "./engine";

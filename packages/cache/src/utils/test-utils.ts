@@ -38,18 +38,16 @@ export const testCache = (
   describe(`CacheHandler with ${name} engine`, () => {
     let cache: CacheHandler;
 
-    beforeEach(async (done) => {
+    beforeEach(async () => {
       cache = new CacheHandler(await createEngine(), options);
       await cache.engine.deleteAll();
-      done();
     });
 
-    afterEach(async (done) => {
+    afterEach(async () => {
       await cache.engine.deleteAll();
-      done();
     });
 
-    test("get, set, delete", async (done) => {
+    test("get, set, delete", async () => {
       await expect(cache.get("hello")).resolves.toBeUndefined();
       await expect(cache.set("hello", "1")).resolves.toBeUndefined();
       await expect(cache.get("hello")).resolves.toBe("1");
@@ -57,54 +55,47 @@ export const testCache = (
       await expect(cache.get("hello")).resolves.toBe("2");
       await expect(cache.delete("hello")).resolves.toBeUndefined();
       await expect(cache.get("hello")).resolves.toBeUndefined();
-      done();
     });
 
-    test("set disabled", async (done) => {
+    test("set disabled", async () => {
       cache.setOptions({ ttl: null });
       await expect(cache.set("hello", "1")).resolves.toBeUndefined();
       await expect(cache.get("hello")).resolves.toBeUndefined();
-      done();
     });
 
-    test("setError disabled", async (done) => {
+    test("setError disabled", async () => {
       cache.setOptions({ errorTtl: null });
       await expect(cache.setError("hello", "1")).resolves.toBeUndefined();
       await expect(cache.get("hello")).resolves.toBeUndefined();
-      done();
     });
 
-    test("set forever", async (done) => {
+    test("set forever", async () => {
       cache.setOptions({ ttl: Infinity });
       await expect(cache.set("hello", "1")).resolves.toBeUndefined();
       await expect(cache.get("hello")).resolves.toBe("1");
-      done();
     });
 
-    test("setError forever", async (done) => {
+    test("setError forever", async () => {
       cache.setOptions({ errorTtl: Infinity });
       await expect(cache.setError("hello", "1")).resolves.toBeUndefined();
       await expect(cache.get("hello")).resolves.toBe("1");
-      done();
     });
 
-    test("set and expire", async (done) => {
+    test("set and expire", async () => {
       await expect(cache.set("hello", "1")).resolves.toBeUndefined();
       await expect(cache.get("hello")).resolves.toBe("1");
       await sleep(options.ttl * 1.2);
       await expect(cache.get("hello")).resolves.toBeUndefined();
-      done();
     });
 
-    test("setError and expire", async (done) => {
+    test("setError and expire", async () => {
       await expect(cache.setError("hello", "1")).resolves.toBeUndefined();
       await expect(cache.get("hello")).resolves.toBe("1");
       await sleep(options.errorTtl * 1.2);
       await expect(cache.get("hello")).resolves.toBeUndefined();
-      done();
     });
 
-    test("get, set, delete with compression", async (done) => {
+    test("get, set, delete with compression", async () => {
       const value1 = "-1-".repeat(100);
       const value2 = "-2-".repeat(100);
       await expect(cache.get("hello-compress")).resolves.toBeUndefined();
@@ -118,10 +109,9 @@ export const testCache = (
       await expect(cache.get("hello-compress")).resolves.toBe(value2);
       await expect(cache.delete("hello-compress")).resolves.toBeUndefined();
       await expect(cache.get("hello-compress")).resolves.toBeUndefined();
-      done();
     });
 
-    test("refresh interval with stored value", async (done) => {
+    test("refresh interval with stored value", async () => {
       cache.setOptions({ refreshInterval });
       await expect(cache.set("hello", "1")).resolves.toBeUndefined();
       await expect(cache.get("hello")).resolves.toBe("1");
@@ -130,10 +120,9 @@ export const testCache = (
       await expect(cache.get("hello")).resolves.toBe("1");
       await expect(cache.set("hello", "2")).resolves.toBeUndefined();
       await expect(cache.get("hello")).resolves.toBe("2");
-      done();
     });
 
-    test("refresh interval with stored error", async (done) => {
+    test("refresh interval with stored error", async () => {
       cache.setOptions({ refreshInterval, storeRefreshErrors: true });
       await expect(cache.set("hello", "1")).resolves.toBeUndefined();
       await expect(cache.get("hello")).resolves.toBe("1");
@@ -142,10 +131,9 @@ export const testCache = (
       await expect(cache.get("hello")).resolves.toBe("1");
       await expect(cache.setError("hello", "error")).resolves.toBeUndefined();
       await expect(cache.get("hello")).resolves.toBe("error");
-      done();
     });
 
-    test("refresh interval with ignored error", async (done) => {
+    test("refresh interval with ignored error", async () => {
       cache.setOptions({ refreshInterval, storeRefreshErrors: false });
       await expect(cache.set("hello", "1")).resolves.toBeUndefined();
       await expect(cache.get("hello")).resolves.toBe("1");
@@ -154,19 +142,17 @@ export const testCache = (
       await expect(cache.get("hello")).resolves.toBe("1");
       await expect(cache.setError("hello", "error")).resolves.toBeUndefined();
       await expect(cache.get("hello")).resolves.toBe("1");
-      done();
     });
 
-    test("waitKey timeout", async (done) => {
+    test("waitKey timeout", async () => {
       const t = Date.now();
       await expect(
         cache.waitKey("hello", functionWait, true, 10 * multiplicator)
       ).rejects.toThrowError("Wait timed out");
       expect(Date.now() - t).toBeGreaterThanOrEqual(functionWait);
-      done();
     });
 
-    test("waitKey success with delete", async (done) => {
+    test("waitKey success with delete", async () => {
       const t = Date.now();
       setTimeout(() => cache.set("hello", "1"), functionWait / 2);
       await expect(
@@ -175,10 +161,9 @@ export const testCache = (
       expect(Date.now() - t).toBeGreaterThanOrEqual(functionWait / 2);
       expect(Date.now() - t).toBeLessThan(functionWait);
       await expect(cache.get("hello")).resolves.toBeUndefined();
-      done();
     });
 
-    test("waitKey success without delete", async (done) => {
+    test("waitKey success without delete", async () => {
       const t = Date.now();
       setTimeout(() => cache.set("hello", "1"), functionWait / 2);
       await expect(
@@ -187,10 +172,9 @@ export const testCache = (
       expect(Date.now() - t).toBeGreaterThanOrEqual(functionWait / 2);
       expect(Date.now() - t).toBeLessThan(functionWait);
       await expect(cache.get("hello")).resolves.toBe("1");
-      done();
     });
 
-    test("call success", async (done) => {
+    test("call success", async () => {
       const fn = async () => {
         await sleep(functionWait);
         return "1";
@@ -203,11 +187,9 @@ export const testCache = (
       t = Date.now();
       await expect(cache.call("hello", fn)).resolves.toBe("1");
       expect(Date.now() - t).toBeLessThan(functionWait);
-
-      done();
     });
 
-    test("call error", async (done) => {
+    test("call error", async () => {
       let t = Date.now();
       await expect(cache.call("hello", fnFailed)).rejects.toThrowError(
         "failed"
@@ -229,11 +211,9 @@ export const testCache = (
         "failed"
       );
       expect(Date.now() - t).toBeGreaterThanOrEqual(functionWait);
-
-      done();
     });
 
-    test("call success locked", async (done) => {
+    test("call success locked", async () => {
       cache.setOptions({
         simultanLockTimeout: 200 * multiplicator,
         simultanLockTimeoutSleep: 10 * multiplicator,
@@ -260,11 +240,9 @@ export const testCache = (
         .then(() => {
           expect(Date.now() - t).toBeGreaterThanOrEqual(functionWait);
         });
-
-      done();
     });
 
-    test("call success locked timeout", async (done) => {
+    test("call success locked timeout", async () => {
       cache.setOptions({
         simultanLockTimeout: functionWait / 2,
         simultanLockTimeoutSleep: 10 * multiplicator,
@@ -286,11 +264,9 @@ export const testCache = (
       const t = Date.now();
       await expect(cache.call("hello", fn2)).resolves.toBe("2");
       expect(Date.now() - t).toBeLessThan(functionWait);
-
-      done();
     });
 
-    test("call success locked with error and refresh error store", async (done) => {
+    test("call success locked with error and refresh error store", async () => {
       cache.setOptions({
         simultanLockTimeout: functionWait / 2,
         simultanLockTimeoutSleep: 10 * multiplicator,
@@ -316,11 +292,9 @@ export const testCache = (
       t = Date.now();
       await expect(cache.call("hello", fn2)).rejects.toThrowError("failed");
       expect(Date.now() - t).toBeLessThan(functionWait);
-
-      done();
     });
 
-    test("call success locked with error and refresh error store and fallback to cached value", async (done) => {
+    test("call success locked with error and refresh error store and fallback to cached value", async () => {
       cache.setOptions({
         simultanLockTimeout: functionWait / 2,
         simultanLockTimeoutSleep: 10 * multiplicator,
@@ -344,11 +318,9 @@ export const testCache = (
       t = Date.now();
       await expect(cache.call("hello", fn2)).resolves.toBe("1");
       expect(Date.now() - t).toBeLessThan(functionWait);
-
-      done();
     });
 
-    test("call success locked with error and refresh without store", async (done) => {
+    test("call success locked with error and refresh without store", async () => {
       cache.setOptions({
         simultanLockTimeout: functionWait / 2,
         simultanLockTimeoutSleep: 10 * multiplicator,
@@ -371,11 +343,9 @@ export const testCache = (
       t = Date.now();
       await expect(cache.call("hello", fn2)).resolves.toBe("1");
       expect(Date.now() - t).toBeLessThan(functionWait);
-
-      done();
     });
 
-    test("call with success error", async (done) => {
+    test("call with success error", async () => {
       cache.setOptions({
         refreshInterval,
       });
@@ -408,11 +378,9 @@ export const testCache = (
       t = Date.now();
       await expect(cache.call("hello", fn2)).resolves.toBe("2");
       expect(Date.now() - t).toBeGreaterThanOrEqual(functionWait);
-
-      done();
     });
 
-    test("cleanup and delete all", async (done) => {
+    test("cleanup and delete all", async () => {
       await expect(cache.set("key1", 1)).resolves.toBeUndefined();
       await expect(cache.set("key2", 2, "1m")).resolves.toBeUndefined();
       await expect(cache.set("key3", 3, Infinity)).resolves.toBeUndefined();
@@ -435,8 +403,6 @@ export const testCache = (
       await expect(cache.get("key1")).resolves.toBeUndefined();
       await expect(cache.get("key2")).resolves.toBeUndefined();
       await expect(cache.get("key3")).resolves.toBeUndefined();
-
-      done();
     });
   });
 };

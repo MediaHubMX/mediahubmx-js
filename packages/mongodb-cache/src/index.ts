@@ -1,24 +1,25 @@
 import { registerCacheEngineCreator } from "@mediahubmx/cache";
 import { BasicCache } from "@mediahubmx/cache/dist/engines/basic";
-import * as mongodb from "mongodb";
+import { Db, MongoClient, MongoClientOptions } from "mongodb";
 
 const COLLECTION_NAME = "mediahubmx_cache";
 const PAYLOAD_FIELD = "c";
 /** Expiration date */
 const DATE_FIELD = "d";
 
-const defaultOptions: mongodb.MongoClientOptions = {
-  poolSize: 10,
+const defaultOptions: MongoClientOptions = {
+  minPoolSize: 10,
 };
 
 export class MongodbCache extends BasicCache {
   private initPromise: Promise<void>;
-  private db: mongodb.Db;
+  private db: Db;
 
-  constructor(url: string, opts?: mongodb.MongoClientOptions) {
+  constructor(url: string, opts?: MongoClientOptions) {
     super();
     this.initPromise = (async () => {
-      const c = await mongodb.connect(url, { ...defaultOptions, ...opts });
+      const c = new MongoClient(url, { ...defaultOptions, ...opts });
+      // const c = await mongodb.connect(url, { ...defaultOptions, ...opts });
       this.db = c.db(url.split("/").pop());
       await this.initCollection();
     })();

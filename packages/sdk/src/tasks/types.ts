@@ -2,19 +2,9 @@ import {
   TaskNotificationRequest,
   TaskRecaptchaRequest,
 } from "@mediahubmx/schema";
-import {
-  RequestInfo as FetchRequestInfo,
-  RequestInit as FetchRequestInit,
-  Response,
-  ResponseInit as FetchResponseInit,
-} from "node-fetch";
 import { URLSearchParams } from "url";
 
-// Fetch
-
-export type RequestInfo = FetchRequestInfo;
-
-export type RequestInit = FetchRequestInit & {
+export type MRequestInit = RequestInit & {
   /**
    * Shorthand to set the URL query string.
    */
@@ -32,11 +22,14 @@ export type RequestInit = FetchRequestInit & {
   connection?: "direct" | "proxy";
 };
 
-export type ResponseInit = FetchResponseInit;
+export type MResponseInit = ResponseInit & {
+  url?: string;
+  size?: number;
+};
 
 export type FetchFn = (
   url: RequestInfo,
-  init?: RequestInit,
+  init?: MRequestInit,
   timeout?: number
 ) => Promise<Response>;
 

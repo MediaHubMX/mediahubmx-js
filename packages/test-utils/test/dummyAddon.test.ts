@@ -12,14 +12,6 @@ import { TEST_ITEMS, TEST_SOURCES, TEST_SUBTITLES } from "../addon/testData";
 
 const sdkVersion = require("@mediahubmx/sdk/package.json").version;
 
-const requestEnd = (done: (err?: Error) => void, log = false) => (
-  err: Error,
-  res?: request.Response
-) => {
-  if (log) console.warn(res?.status, res?.header, res?.text);
-  done(err);
-};
-
 const defaults = {
   language: "en",
   region: "UK",
@@ -41,15 +33,14 @@ const itemDefaults: ItemRequest = {
 const engine = createEngine([dummyAddon], { testMode: true });
 const app = request(createApp(engine, { singleMode: false }));
 
-test("action addon", async (done) => {
-  app
+test("action addon", async () => {
+  await app
     .post(`/${dummyAddon.getId()}/mediahubmx.json`)
     .send(<AddonRequest>{ ...defaults })
-    .expect(200, { ...dummyAddon.getProps(), sdkVersion })
-    .end(requestEnd(done));
+    .expect(200, { ...dummyAddon.getProps(), sdkVersion });
 });
 
-test("action catalog", async (done) => {
+test("action catalog", async () => {
   app
     .post(`/${dummyAddon.getId()}/mediahubmx-catalog.json`)
     .send(<CatalogRequest>{
@@ -64,11 +55,10 @@ test("action catalog", async (done) => {
     .expect(200, {
       items: TEST_ITEMS.map((fn) => fn(false)),
       nextCursor: null,
-    })
-    .end(requestEnd(done));
+    });
 });
 
-test("action item", async (done) => {
+test("action item", async () => {
   app
     .post(`/${dummyAddon.getId()}/mediahubmx-item.json`)
     .send(<ItemRequest>itemDefaults)
@@ -77,54 +67,47 @@ test("action item", async (done) => {
       TEST_ITEMS.map((fn) => fn(true)).find(
         (i) => i.ids["dummy-test"] === "elephant"
       )
-    )
-    .end(requestEnd(done));
+    );
 });
 
-test("action source", async (done) => {
+test("action source", async () => {
   app
     .post(`/${dummyAddon.getId()}/mediahubmx-source.json`)
     .send(<SourceRequest>itemDefaults)
-    .expect(200, TEST_SOURCES.elephant)
-    .end(requestEnd(done));
+    .expect(200, TEST_SOURCES.elephant);
 });
 
-test("action subtitle", async (done) => {
+test("action subtitle", async () => {
   app
     .post(`/${dummyAddon.getId()}/mediahubmx-subtitle.json`)
     .send(<SourceRequest>itemDefaults)
-    .expect(200, TEST_SUBTITLES.elephant)
-    .end(requestEnd(done));
+    .expect(200, TEST_SUBTITLES.elephant);
 });
 
-test("action subtitle (cached response)", async (done) => {
+test("action subtitle (cached response)", async () => {
   app
     .post(`/${dummyAddon.getId()}/mediahubmx-subtitle.json`)
     .send(<SourceRequest>itemDefaults)
-    .expect(200, TEST_SUBTITLES.elephant)
-    .end(requestEnd(done));
+    .expect(200, TEST_SUBTITLES.elephant);
 });
 
-test("action selftest", async (done) => {
+test("action selftest", async () => {
   app
     .post(`/${dummyAddon.getId()}/mediahubmx-selftest.json`)
     .send()
-    .expect(200, '"ok"')
-    .end(requestEnd(done));
+    .expect(200, '"ok"');
 });
 
-test("action server selftest", async (done) => {
+test("action server selftest", async () => {
   app
     .post("/mediahubmx-selftest.json")
     .send()
-    .expect(200, { "dummy-test": [200, "ok"] })
-    .end(requestEnd(done));
+    .expect(200, { "dummy-test": [200, "ok"] });
 });
 
-test("action server", async (done) => {
+test("action server", async () => {
   app
     .post(`/mediahubmx.json`)
     .send()
-    .expect(200, { type: "server", addons: ["dummy-test"] })
-    .end(requestEnd(done));
+    .expect(200, { type: "server", addons: ["dummy-test"] });
 });
