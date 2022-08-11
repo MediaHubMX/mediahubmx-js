@@ -1,3 +1,3 @@
 # MediaHubMX test utilities
 
-The SDK documentation is located in the [README.md](https://github.com/MediaHubMXMX/mediahubmx-js#readme) in the root of this project.
+The SDK documentation is located in the [README.md](https://github.com/MediaHubMX/mediahubmx-js#readme) in the root of this project.

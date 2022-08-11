@@ -14,10 +14,10 @@ In best way to create your own MediaHubMX addon is by cloning our example addon 
 
 ### Cloning the example addon
 
-The best way to start is to clone our [example addon](https://github.com/MediaHubMXMX/mediahubmx-example) addon:
+The best way to start is to clone our [example addon](https://github.com/MediaHubMX/mhub-example) addon:
 
 ```shell
-git clone https://github.com/MediaHubMXMX/mediahubmx-example.git my-addon
+git clone https://github.com/MediaHubMX/mhub-example.git my-addon
 ```
 
 Now open the created folder `my-addon` with your editor.
@@ -37,7 +37,7 @@ npm run develop
 You should see something like this:
 
 ```
-> mediahubmx-example@0.0.0 develop /home/myname/mediahubmx-example
+> mhub-example@0.0.0 develop /home/myname/mhub-example
 > ts-node-dev src
 
 [INFO] 22:50:11 ts-node-dev ver. 1.1.1 (using ts-node ver. 9.1.1, typescript ver. 4.1.3)
@@ -93,7 +93,7 @@ Please also check out our object schema here: https://www.mhub.mx/swagger/
 
 ## Deploy your addon
 
-Please check our deployment documentation at [docs/deployment.md](https://github.com/MediaHubMXMX/mediahubmx-js/blob/master/docs/deployment.md).
+Please check our deployment documentation at [docs/deployment.md](https://github.com/MediaHubMX/mediahubmx-js/blob/master/docs/deployment.md).
 
 ## Tips for development and testing
 

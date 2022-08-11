@@ -2,7 +2,7 @@
 
 [Cassandra](https://cassandra.apache.org/) caching engine for MeduaURL addons.
 
-You can find the caching documentation [here](https://github.com/MediaHubMXMX/mediahubmx-js/blob/main/docs/caching.md).
+You can find the caching documentation [here](https://github.com/MediaHubMX/mediahubmx-js/blob/main/docs/caching.md).
 
 ## Usage with your addon
 

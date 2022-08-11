@@ -12,7 +12,7 @@ Currently there are the following caching engines available:
 
 The `MemoryCache` and `DiskCache` are built in. To add other caching engines, the recommended way is to load them via the `LOAD_MEDIAHUBMX_CACHE_MODULE` enviroment variable.
 
-Check our [example addon](https://github.com/MediaHubMXMX/mediahubmx-example/blob/main/Dockerfile) to see the usage of this caching system.
+Check our [example addon](https://github.com/MediaHubMX/mhub-example/blob/main/Dockerfile) to see the usage of this caching system.
 
 ### `MemoryCache`
 

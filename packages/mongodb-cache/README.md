@@ -1,3 +1,3 @@
 # MediaHubMX MongoDB caching engine
 
-You can find the caching documentation [here](https://github.com/MediaHubMXMX/mediahubmx-js/blob/main/docs/caching.md).
+You can find the caching documentation [here](https://github.com/MediaHubMX/mediahubmx-js/blob/main/docs/caching.md).
