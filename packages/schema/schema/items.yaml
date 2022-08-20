@@ -221,6 +221,8 @@ definitions:
         oneOf:
           - $ref: "general.yaml#/definitions/UnixTimestamp"
           - type: string
+      poster:
+        $ref: "general.yaml#/definitions/Image"
       season:
         description: Season number. For specials, use 0.
         type: number
