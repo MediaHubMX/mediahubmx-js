@@ -1,7 +1,7 @@
 {
   "name": "@mediahubmx/sdk",
   "description": "MediaHubMX Javascript SDK",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "dist",
   "scripts": {
     "test": "jest",
@@ -9,8 +9,8 @@
     "prepublishOnly": "rm -rf dist && npm run build"
   },
   "dependencies": {
-    "@mediahubmx/cache": "^1.0.3",
-    "@mediahubmx/schema": "^1.0.3",
+    "@mediahubmx/cache": "^1.0.4",
+    "@mediahubmx/schema": "^1.0.4",
     "agent-base": "^6.0.2",
     "body-parser": "^1.20.0",
     "commander": "^9.4.0",

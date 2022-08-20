@@ -1,7 +1,7 @@
 {
   "name": "@mediahubmx/mongodb-cache",
   "description": "MediaHubMX MongoDB cache wrapper",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "dist",
   "scripts": {
     "test": "jest",
@@ -9,7 +9,7 @@
     "prepublishOnly": "rm -rf dist && npm run build"
   },
   "dependencies": {
-    "@mediahubmx/cache": "^1.0.3",
+    "@mediahubmx/cache": "^1.0.4",
     "mongodb": "^4.8.1"
   },
   "devDependencies": {
