@@ -27,32 +27,17 @@ export class FetchAgent extends Agent {
       headers: (opts.headers || {}) as { [key: string]: string },
     });
 
-    const headers: Record<string, (string | undefined)[]> = {
-      "transfer-encoding": ["identity"],
-      "content-length": [undefined],
-    };
+    const headers: string[] = [];
     resp.headers.forEach((value, key) => {
-      if (headers[key]) headers[key].push(value);
-      else headers[key] = [value];
+      if (value) headers.push(`${key.trim()}: ${value.trim()}`);
     });
-
-    const responseHeadersLines = Object.keys(headers)
-      .filter((key) => headers[key])
-      .map((key) => {
-        return `${key}: ${headers[key]}`;
-      });
+    headers.push("", "");
 
     req.once("socket", async (s) => {
       s.resume();
 
-      const headersPayload =
-        [`HTTP/1.1 ${resp.status}`, ...responseHeadersLines].join("\n") +
-        "\n\n";
-
-      const text = await resp.text();
-
-      fakeSocket.push(headersPayload);
-      fakeSocket.push(Buffer.from(text));
+      fakeSocket.push([`HTTP/1.1 ${resp.status}`, ...headers].join("\r\n"));
+      fakeSocket.push(Buffer.from(await resp.text()));
       fakeSocket.push(null);
     });
 
