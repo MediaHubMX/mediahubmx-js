@@ -80,6 +80,7 @@ const createAddonRouter = (
       // In single mode, render the index page
       // TODO: Get addon props from the action handler `addon`
       res.render("index", {
+        isDezor: !!req.headers["user-agent"]?.includes("Dezor/"),
         addons: [addon.getProps()],
         options,
       });
@@ -148,6 +149,7 @@ export const createMultiAddonRouter = (
   router.get("/", (req, res) => {
     // TODO: Get get addon props from the action handler `addon`
     res.render("index", {
+      isDezor: !!req.headers["user-agent"]?.includes("Dezor/"),
       addons: engine.addons.map((addon) => addon.getProps()),
       options,
     });
