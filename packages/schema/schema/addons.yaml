@@ -15,6 +15,25 @@ definitions:
       - type: string
         enum: [selftest, addon]
       - $ref: "#/definitions/AddonResourceActions"
+  AddonLink:
+    type: object
+    required: [id]
+    properties:
+      id:
+        type: string
+      name:
+        description: Name of this link, optionally localized.
+        oneOf:
+          - $ref: "general.yaml#/definitions/TranslatedText"
+      icon:
+        description: Link icon. Can be a relative path to the addon URL.
+        oneOf:
+          - $ref: "general.yaml#/definitions/Image"
+      endpoints:
+        description: See `Addon.endpoints` and `Addon.requirements`.
+        type: array
+        items:
+          type: string
   Addon:
     type: object
     required: [id, name]
@@ -37,21 +56,12 @@ definitions:
           Can be a relative path to the addon URL.
         oneOf:
           - $ref: "general.yaml#/definitions/Image"
-      homepage:
-        description: Homepage.
-        oneOf:
-          - $ref: "general.yaml#/definitions/Url"
       description:
         description: Short description of this addon.
         oneOf:
           - $ref: "general.yaml#/definitions/TranslatedText"
       adult:
         description: Have to be `true` if this addon provides adult content.
-        type: boolean
-        default: false
-      devModeOnly:
-        description: |
-          If `true`, this addon is only available when developer mode is enabled.
         type: boolean
         default: false
       regions:
@@ -72,6 +82,22 @@ definitions:
         type: array
         items:
           type: string
+      requirements:
+        description: |
+          List of other addons which should be installed. The values can be an
+          URL to an addon, or a path relative to the current addon.
+          Eg:
+          - `https://example.com/mediahubmx/v1/some.addon.id`
+          - `../relative/path-to/current/addon`
+        type: array
+        items:
+          type: string
+      links:
+        description: |
+          Links to this or other addons which will be shown inside the client app.
+        type: array
+        items:
+          $ref: "#/definitions/AddonLink"
       actions:
         description: Addon actions this addon provides.
         type: array
@@ -142,16 +168,6 @@ definitions:
         items:
           oneOf:
             - $ref: "tasks.yaml#/definitions/CaptchaTypes"
-      requirements:
-        description: |
-          List of other addons which should be installed. The values can be an
-          URL to an addon, or a path relative to the current addon.
-          Eg:
-          - `https://example.com/mediahubmx/v1/some.addon.id`
-          - `../relative/path-to/current/addon`
-        type: array
-        items:
-          type: string
   Server:
     type: object
     description: |
