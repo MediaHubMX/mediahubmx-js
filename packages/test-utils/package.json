@@ -1,7 +1,7 @@
 {
   "name": "@mediahubmx/test-utils",
   "description": "Test utils for MediaHubMX addons",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "main": "dist",
   "scripts": {
     "test": "jest",
@@ -10,7 +10,7 @@
     "develop-addon": "ts-node-dev addon"
   },
   "dependencies": {
-    "@mediahubmx/sdk": "^1.2.0",
+    "@mediahubmx/sdk": "^1.2.1",
     "jest": "^28.1.3"
   },
   "devDependencies": {
