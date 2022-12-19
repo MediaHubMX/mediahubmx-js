@@ -79,7 +79,7 @@ const createAddonRouter = (
     if (options.singleMode) {
       // In single mode, render the index page
       // TODO: Get addon props from the action handler `addon`
-      res.render("index", {
+      res.setHeader("Mhub-Endpoint", ".").render("index", {
         isDezor: !!req.headers["user-agent"]?.includes("Dezor/"),
         addons: [addon.getProps()],
         options,
@@ -108,7 +108,7 @@ const createAddonRouter = (
           ? JSON.parse(<string>req.query.data)
           : {},
       sendResponse: async (statusCode, data) => {
-        res.status(statusCode).json(data);
+        res.setHeader("Mhub-Endpoint", ".").status(statusCode).json(data);
       },
     });
   };
@@ -148,7 +148,7 @@ export const createMultiAddonRouter = (
 
   router.get("/", (req, res) => {
     // TODO: Get get addon props from the action handler `addon`
-    res.render("index", {
+    res.setHeader("Mhub-Endpoint", ".").render("index", {
       isDezor: !!req.headers["user-agent"]?.includes("Dezor/"),
       addons: engine.addons.map((addon) => addon.getProps()),
       options,
@@ -159,7 +159,7 @@ export const createMultiAddonRouter = (
   const server: express.RequestHandler = (req, res) => {
     serverHandler({
       sendResponse: async (statusCode, data) => {
-        res.status(statusCode).json(data);
+        res.setHeader("Mhub-Endpoint", ".").status(statusCode).json(data);
       },
     });
   };
@@ -174,7 +174,7 @@ export const createMultiAddonRouter = (
         headers: <RequestInfos["headers"]>req.headers,
       },
       sendResponse: async (statusCode, data) => {
-        res.status(statusCode).json(data);
+        res.setHeader("Mhub-Endpoint", ".").status(statusCode).json(data);
       },
     });
   };

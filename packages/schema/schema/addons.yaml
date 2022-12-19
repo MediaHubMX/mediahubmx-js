@@ -30,7 +30,9 @@ definitions:
         oneOf:
           - $ref: "general.yaml#/definitions/Image"
       endpoints:
-        description: See `Addon.endpoints` and `Addon.requirements`.
+        description: |
+          A list of URL's to addons. If empty, the addon's endpoints are used.
+          To use the current endpoints together with others, add a `.` to the list.
         type: array
         items:
           type: string
