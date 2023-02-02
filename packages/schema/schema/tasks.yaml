@@ -19,7 +19,6 @@ definitions:
           method:
             type: string
             enum: [GET, POST, PUT, OPTIONS, DELETE, CONNECT, HEAD]
-            default: GET
           headers:
             type: object
             additionalProperties:
@@ -33,12 +32,9 @@ definitions:
           redirect:
             type: string
             enum: [follow, manual, error]
-            default: follow
-        default: {}
       body:
         description: Download the response body.
         type: boolean
-        default: true
     required: [type, url]
   TaskFetchResponse:
     type: object

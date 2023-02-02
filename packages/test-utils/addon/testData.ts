@@ -109,30 +109,26 @@ export const TEST_SOURCES: TestSources = {
       type: "url",
       id: "",
       name: "Source 1",
-      url:
-        "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4",
+      url: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4",
     },
   ],
   elephant: [
     {
       type: "url",
       name: "mp4",
-      url:
-        "https://thepaciellogroup.github.io/AT-browser-tests/video/ElephantsDream.mp4",
+      url: "https://thepaciellogroup.github.io/AT-browser-tests/video/ElephantsDream.mp4",
     },
     {
       type: "url",
       name: "webm",
-      url:
-        "https://thepaciellogroup.github.io/AT-browser-tests/video/ElephantsDream.webm",
+      url: "https://thepaciellogroup.github.io/AT-browser-tests/video/ElephantsDream.webm",
     },
   ],
   "4ktest": [
     {
       type: "url",
       name: "hls",
-      url:
-        "https://bitmovin-a.akamaihd.net/content/playhouse-vr/m3u8s/105560.m3u8",
+      url: "https://bitmovin-a.akamaihd.net/content/playhouse-vr/m3u8s/105560.m3u8",
     },
   ],
 };
@@ -149,16 +145,14 @@ export const TEST_SUBTITLES: TestSubtitle = {
       name: "VTT",
       language: "en",
       type: "vtt",
-      url:
-        "https://thepaciellogroup.github.io/AT-browser-tests/video/subtitles-en.vtt",
+      url: "https://thepaciellogroup.github.io/AT-browser-tests/video/subtitles-en.vtt",
     },
     {
       id: "ttml",
       name: "TTML",
       language: "en",
       type: "ttml",
-      url:
-        "https://thepaciellogroup.github.io/AT-browser-tests/video/subtitles-en.ttml",
+      url: "https://thepaciellogroup.github.io/AT-browser-tests/video/subtitles-en.ttml",
     },
   ],
 };
@@ -169,7 +163,6 @@ export const TEST_IPTV_ITEMS: IptvItem[] = [
     ids: {},
     name: "Not really a livestream",
     group: "Test!",
-    url:
-      "https://bitmovin-a.akamaihd.net/content/playhouse-vr/m3u8s/105560.m3u8",
+    url: "https://bitmovin-a.akamaihd.net/content/playhouse-vr/m3u8s/105560.m3u8",
   },
 ];

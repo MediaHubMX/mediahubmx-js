@@ -197,7 +197,6 @@ addRecord({
     },
     name: "Test Item 1",
     year: 2011,
-    episode: {},
   },
   output: {
     type: "movie",
@@ -225,7 +224,6 @@ addRecord({
     },
     name: "Test Item 1",
     year: 2011,
-    episode: {},
   },
   output: [],
   statusCode: 200,
@@ -245,7 +243,6 @@ addRecord({
     },
     name: "Big Buck Bunny",
     year: 2013,
-    episode: {},
   },
   output: {
     type: "movie",
@@ -299,15 +296,13 @@ addRecord({
     },
     name: "Big Buck Bunny",
     year: 2013,
-    episode: {},
   },
   output: [
     {
       type: "url",
       id: "",
       name: "Source 1",
-      url:
-        "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4",
+      url: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4",
     },
   ],
   statusCode: 200,
@@ -327,7 +322,6 @@ addRecord({
     },
     name: "Big Buck Bunny",
     year: 2013,
-    episode: {},
   },
   output: [],
   statusCode: 200,
@@ -347,7 +341,6 @@ addRecord({
     },
     name: "Test Item 1",
     year: 2011,
-    episode: {},
   },
   output: {
     type: "movie",
@@ -375,7 +368,6 @@ addRecord({
     },
     name: "Test Item 1",
     year: 2011,
-    episode: {},
   },
   output: [],
   statusCode: 200,
@@ -395,7 +387,6 @@ addRecord({
     },
     name: "Elephants Dream",
     year: 2012,
-    episode: {},
   },
   output: {
     type: "movie",
@@ -452,20 +443,17 @@ addRecord({
     },
     name: "Elephants Dream",
     year: 2012,
-    episode: {},
   },
   output: [
     {
       type: "url",
       name: "mp4",
-      url:
-        "https://thepaciellogroup.github.io/AT-browser-tests/video/ElephantsDream.mp4",
+      url: "https://thepaciellogroup.github.io/AT-browser-tests/video/ElephantsDream.mp4",
     },
     {
       type: "url",
       name: "webm",
-      url:
-        "https://thepaciellogroup.github.io/AT-browser-tests/video/ElephantsDream.webm",
+      url: "https://thepaciellogroup.github.io/AT-browser-tests/video/ElephantsDream.webm",
     },
   ],
   statusCode: 200,
@@ -485,7 +473,6 @@ addRecord({
     },
     name: "Elephants Dream",
     year: 2012,
-    episode: {},
   },
   output: [
     {
@@ -493,16 +480,14 @@ addRecord({
       name: "VTT",
       language: "en",
       type: "vtt",
-      url:
-        "https://thepaciellogroup.github.io/AT-browser-tests/video/subtitles-en.vtt",
+      url: "https://thepaciellogroup.github.io/AT-browser-tests/video/subtitles-en.vtt",
     },
     {
       id: "ttml",
       name: "TTML",
       language: "en",
       type: "ttml",
-      url:
-        "https://thepaciellogroup.github.io/AT-browser-tests/video/subtitles-en.ttml",
+      url: "https://thepaciellogroup.github.io/AT-browser-tests/video/subtitles-en.ttml",
     },
   ],
   statusCode: 200,
@@ -515,12 +500,10 @@ addRecord({
   input: {
     language: "de",
     region: "CH",
-    url:
-      "https://thepaciellogroup.github.io/AT-browser-tests/video/ElephantsDream.webm",
+    url: "https://thepaciellogroup.github.io/AT-browser-tests/video/ElephantsDream.webm",
   },
   output: {
-    url:
-      "https://thepaciellogroup.github.io/AT-browser-tests/video/ElephantsDream.webm?chain=1",
+    url: "https://thepaciellogroup.github.io/AT-browser-tests/video/ElephantsDream.webm?chain=1",
     resolveAgain: true,
   },
   statusCode: 200,
@@ -540,7 +523,6 @@ addRecord({
     },
     name: "Elephants Dream",
     year: 2012,
-    episode: {},
   },
   output: [
     {
@@ -548,16 +530,14 @@ addRecord({
       name: "VTT",
       language: "en",
       type: "vtt",
-      url:
-        "https://thepaciellogroup.github.io/AT-browser-tests/video/subtitles-en.vtt",
+      url: "https://thepaciellogroup.github.io/AT-browser-tests/video/subtitles-en.vtt",
     },
     {
       id: "ttml",
       name: "TTML",
       language: "en",
       type: "ttml",
-      url:
-        "https://thepaciellogroup.github.io/AT-browser-tests/video/subtitles-en.ttml",
+      url: "https://thepaciellogroup.github.io/AT-browser-tests/video/subtitles-en.ttml",
     },
   ],
   statusCode: 200,
@@ -570,8 +550,7 @@ addRecord({
   input: {
     language: "de",
     region: "CH",
-    url:
-      "https://thepaciellogroup.github.io/AT-browser-tests/video/ElephantsDream.webm?chain=1",
+    url: "https://thepaciellogroup.github.io/AT-browser-tests/video/ElephantsDream.webm?chain=1",
   },
   output:
     "https://thepaciellogroup.github.io/AT-browser-tests/video/ElephantsDream.webm?chain=1",
@@ -592,7 +571,6 @@ addRecord({
     },
     name: "Elephants Dream",
     year: 2012,
-    episode: {},
   },
   output: [
     {
@@ -600,16 +578,14 @@ addRecord({
       name: "VTT",
       language: "en",
       type: "vtt",
-      url:
-        "https://thepaciellogroup.github.io/AT-browser-tests/video/subtitles-en.vtt",
+      url: "https://thepaciellogroup.github.io/AT-browser-tests/video/subtitles-en.vtt",
     },
     {
       id: "ttml",
       name: "TTML",
       language: "en",
       type: "ttml",
-      url:
-        "https://thepaciellogroup.github.io/AT-browser-tests/video/subtitles-en.ttml",
+      url: "https://thepaciellogroup.github.io/AT-browser-tests/video/subtitles-en.ttml",
     },
   ],
   statusCode: 200,
@@ -629,7 +605,6 @@ addRecord({
     },
     name: "4k Test",
     year: 2012,
-    episode: {},
   },
   output: {
     type: "movie",
@@ -751,14 +726,12 @@ addRecord({
     },
     name: "4k Test",
     year: 2012,
-    episode: {},
   },
   output: [
     {
       type: "url",
       name: "hls",
-      url:
-        "https://bitmovin-a.akamaihd.net/content/playhouse-vr/m3u8s/105560.m3u8",
+      url: "https://bitmovin-a.akamaihd.net/content/playhouse-vr/m3u8s/105560.m3u8",
     },
   ],
   statusCode: 200,
@@ -778,7 +751,6 @@ addRecord({
     },
     name: "4k Test",
     year: 2012,
-    episode: {},
   },
   output: [],
   statusCode: 200,

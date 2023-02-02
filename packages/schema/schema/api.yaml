@@ -7,11 +7,9 @@ definitions:
       language:
         oneOf:
           - $ref: "general.yaml#/definitions/Language"
-        default: en
       region:
         oneOf:
           - $ref: "general.yaml#/definitions/Country"
-        default: "XX"
     required: [language, region]
   # Api requests and responses
   SelftestRequest:
@@ -40,12 +38,10 @@ definitions:
             description: |
               ID of the catalog.
             type: string
-            default: ""
           id:
             description: |
               ID of the `catalog` object. Defaults to an empty string.
             type: string
-            default: ""
           # The following properties are 1:1 the ones from
           # `catalogs.yaml#/definitions/CatalogArguments`, but  with all
           # properties required. This is required since the typescript
@@ -53,19 +49,15 @@ definitions:
           adult:
             description: Return adult items.
             type: boolean
-            default: false
           search:
             description: Search query string.
             type: string
-            default: ""
           sort:
             description: Sort results by this column.
             type: string
-            default: ""
           filter:
             description: Filter values.
             type: object
-            default: {}
           cursor:
             description: |
               Used for pagination. This describes the position inside the catalog.
@@ -75,7 +67,6 @@ definitions:
               cursor with the `nextCursor` property of `CatalogResponse`.
             type: ["null", string, number]
             nullable: true
-            default: null
   CatalogResponse:
     type: object
     required: [items, nextCursor]
@@ -170,8 +161,6 @@ definitions:
                 type: number
                 minimum: 0
                 maximum: 100000
-            default: {}
-        required: [episode]
   SourceResponse:
     oneOf:
       - $ref: "objects.yaml#/definitions/Source"
@@ -198,7 +187,6 @@ definitions:
       region:
         oneOf:
           - $ref: "general.yaml#/definitions/Country"
-        default: "XX"
       url:
         $ref: "general.yaml#/definitions/Url"
     required: [region, url]

@@ -318,7 +318,6 @@ definitions:
           You just can leave this empty.
         oneOf:
           - $ref: "#/definitions/ItemIDs"
-        default: {}
       name:
         description: Name of item.
         type: string
@@ -370,7 +369,6 @@ definitions:
             poster:
               $ref: "general.yaml#/definitions/Image"
           required: [start, stop, name]
-        default: []
     required: [type, ids, url]
   VodItem:
     description: All items which could be played, excludes `directory` and `iptv`.

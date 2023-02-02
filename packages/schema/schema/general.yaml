@@ -48,14 +48,12 @@ definitions:
         items:
           oneOf:
             - $ref: "general.yaml#/definitions/Country"
-          default: []
       forbidden:
         description: |
           Forbidden regions.
         type: array
         items:
           $ref: "general.yaml#/definitions/Country"
-        default: []
   Language:
     description: Language in ISO-639-1 format.
     type: string

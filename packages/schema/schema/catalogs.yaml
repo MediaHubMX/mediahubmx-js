@@ -48,7 +48,6 @@ definitions:
       multiselect:
         description: If this is true, an array will be returned.
         type: boolean
-        default: false
       values:
         description: Values used by filters (Genres, countries, ...).
         type: array
@@ -83,7 +82,6 @@ definitions:
         properties:
           enabled:
             type: boolean
-            default: false
           compatibleSort:
             $ref: "#/definitions/CompatibleCatalogFeature"
           compatibleFilter:
@@ -107,19 +105,15 @@ definitions:
       adult:
         description: Return adult items.
         type: boolean
-        default: false
       search:
         description: Search query string.
         type: string
-        default: ""
       sort:
         description: Sort results by this column.
         type: string
-        default: ""
       filter:
         description: Filter values.
         type: object
-        default: {}
       cursor:
         description: |
           Used for pagination. This describes the position inside the catalog.
@@ -129,15 +123,12 @@ definitions:
           cursor with the `nextCursor` property of `CatalogResponse`.
         type: ["null", string, number]
         nullable: true
-        default: null
-    default: {}
   Catalog:
     type: object
     properties:
       id:
         description: ID of catalog.
         type: string
-        default: ""
       name:
         description: Name of catalog.
         oneOf:
@@ -162,7 +153,6 @@ definitions:
       adult:
         description: Have to be `true` if this catalog provides adult content.
         type: boolean
-        default: false
   Page:
     type: object
     description: |
@@ -215,7 +205,6 @@ definitions:
           Catalog this directory belongs to. It will use the `options` and `features`
           of the catalog.
         type: string
-        default: ""
       addonId:
         description: |
           Addon ID which should be called for this addon. By default this value is set
@@ -253,7 +242,6 @@ definitions:
               If the end of the catalog is reached, set this to `null`.
             type: ["null", string, number]
             nullable: true
-            default: null
   DashboardItem:
     description: |
       Directories and items which will be displayed on the home page in the app.

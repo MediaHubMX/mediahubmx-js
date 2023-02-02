@@ -38,7 +38,6 @@ definitions:
         description: Type of this source. Can be `url` or `externalUrl`.
         type: string
         enum: [url, externalUrl]
-        default: url
       id:
         description:
           ID of this source. By default the `url` is used. In some cases
@@ -78,7 +77,6 @@ definitions:
           If true, only this subtitles are offered to the user.
           The app will not try to find more subtitles via other addons.
         type: boolean
-        default: false
       infos:
         description: |
           Infos displayed for this source. This is optional
@@ -91,7 +89,6 @@ definitions:
             type:
               type: string
               enum: [free, subscription, rent, purchase]
-              default: free
             label:
               type: string
             currency:
@@ -100,13 +97,11 @@ definitions:
             price:
               type: number
           required: [type]
-        default: []
       regions:
         $ref: "general.yaml#/definitions/Regions"
       forbidDownload:
         description: Forbid the client to download this source.
         type: boolean
-        default: false
   ResolvedUrl:
     description: A response of `source` or `subtitle` functions.
     type: object
@@ -126,11 +121,9 @@ definitions:
         $ref: "general.yaml#/definitions/Url"
       headers:
         type: object
-        default: {}
       resolveAgain:
         description: |
           If `true`, the app will try to resolve the `url` again. This is useful
           to resolve URL's which are behind some gateway for example.
         type: boolean
-        default: false
     required: [url]

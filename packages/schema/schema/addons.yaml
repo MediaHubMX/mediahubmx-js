@@ -50,7 +50,6 @@ definitions:
       version:
         description: Version in semver format.
         type: string
-        default: "1.0.0"
       icon:
         description: |
           Addon icon which is displayed on the addon index page and
@@ -65,7 +64,6 @@ definitions:
       adult:
         description: Have to be `true` if this addon provides adult content.
         type: boolean
-        default: false
       regions:
         description: Regions where this addon is available, or forbidden.
         oneOf:
