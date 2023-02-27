@@ -1,29 +1,15 @@
 doctype html
 html
   head
-    title MediaHubMX Addon Server
+    if isDezor
+      h1 Loading, please wait...
+    else
+      h1 Can not render website.
   script.
     window.mediahubmxEndpoint = ".";
   body
     tt
-      h1 MediaHubMX Addon Server
       if isDezor
-        p Loading, please wait...
-        p ---
-        p Bitte warten...
+        h1 Loading, please wait...
       else
-        p This page is only compatible with the Dezor Web Browser for now.
-        p
-          | Download it from
-          |
-          a(href="https://www.dezor.net/") www.dezor.net
-          |
-          | and access this page again with the Dezor Web Browser.
-        p ---
-        p Diese Seite ist vorerst nur mit dem Dezor Web Browser kompatibel. 
-        p 
-          | Lade ihn unter
-          |
-          a(href="https://www.dezor.net/") www.dezor.net
-          | 
-          | herunter und rufe diese Seite erneut mit dem Dezor Web Browser auf.
+        h1 Can not render website.
