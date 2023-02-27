@@ -1,7 +1,7 @@
 {
   "name": "@mediahubmx/sdk",
   "description": "MediaHubMX Javascript SDK",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "main": "dist",
   "scripts": {
     "test": "jest",
