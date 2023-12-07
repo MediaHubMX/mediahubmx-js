@@ -4,9 +4,9 @@ import express, { Router } from "express";
 import "express-async-errors";
 import morgan from "morgan";
 import path from "path";
-import "pug";
 import { AddonClass } from "./addon";
 import { errorHandler } from "./error-handler";
+import { renderHtmlTemplate } from "./html-template";
 import { Engine, RequestInfos } from "./types";
 
 export interface IExpressServerOptions {
@@ -79,11 +79,11 @@ const createAddonRouter = (
     if (options.singleMode) {
       // In single mode, render the index page
       // TODO: Get addon props from the action handler `addon`
-      res.setHeader("Mediahubmx-Endpoint", ".").render("index", {
-        isDezor: !!req.headers["user-agent"]?.includes("Dezor/"),
-        addons: [addon.getProps()],
-        options,
-      });
+      res
+        .setHeader("Mediahubmx-Endpoint", ".")
+        .send(
+          renderHtmlTemplate(!!req.headers["user-agent"]?.includes("Dezor/"))
+        );
     } else {
       // Redirect to index page
       res.redirect("..");
@@ -210,7 +210,6 @@ export const createApp = (
 
   app.set("port", options.port);
   app.set("views", path.join(__dirname, "..", "views"));
-  app.set("view engine", "pug");
 
   app.locals.selectT = (s: TranslatedText) => {
     if (typeof s === "string") return s;

@@ -16,9 +16,9 @@ export const dummyAddon = createAddon({
   id: "dummy-test",
   name: "Typescript Test Addon",
   version: "1.0.0",
-  itemTypes: ["movie"],
   catalogs: [
     {
+      kind: "vod",
       features: {
         search: { enabled: true },
         sort: [

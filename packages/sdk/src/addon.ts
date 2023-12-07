@@ -1,5 +1,5 @@
 import { CacheOptions, CacheOptionsParam } from "@mediahubmx/cache";
-import { Addon, AddonActions, AddonResourceActions } from "@mediahubmx/schema";
+import { Addon, AddonResourceActions } from "@mediahubmx/schema";
 import { cloneDeep } from "lodash";
 import { ActionHandlers, ResolverHandlerFn } from "./types";
 import { validateAddonProps } from "./validators";
@@ -40,16 +40,6 @@ export class AddonClass {
 
   public validateAddon() {
     validateAddonProps(this.getProps());
-    if (
-      this.props.actions?.some((action: AddonActions) =>
-        ["item", "source", "subtitle"].includes(action)
-      ) &&
-      !this.props.itemTypes?.length
-    ) {
-      throw new Error(
-        `Addon actions "item", "source" and "subtitle" need at least one value in "itemType".`
-      );
-    }
   }
 
   public getProps(): Addon {

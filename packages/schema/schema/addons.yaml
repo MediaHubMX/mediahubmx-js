@@ -103,13 +103,6 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/AddonResourceActions"
-      itemTypes:
-        description: |
-          Actions: `catalog`, `item`, `source`, `subtitle`
-          Item types this addon provides.
-        type: array
-        items:
-          $ref: "items.yaml#/definitions/ItemTypes"
       catalogs:
         description: |
           Actions: `catalog`

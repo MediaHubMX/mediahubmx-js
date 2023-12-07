@@ -1,5 +1,9 @@
 $schema: "http://json-schema.org/draft-07/schema#"
 definitions:
+  CatalogKinds:
+    description: Valid kinds of a catalog.
+    type: string
+    enum: [vod, iptv]
   CatalogOptions:
     description: Options on how to display images.
     type: object
@@ -143,13 +147,8 @@ definitions:
         $ref: "#/definitions/CatalogOptions"
       features:
         $ref: "#/definitions/CatalogFeatures"
-      itemTypes:
-        description: |
-          Item types returned by this catalog. If not set,
-          it will fallback to the addon item types.
-        type: array
-        items:
-          $ref: "items.yaml#/definitions/ItemTypes"
+      kind:
+        $ref: "#/definitions/CatalogKinds"
       adult:
         description: Have to be `true` if this catalog provides adult content.
         type: boolean
